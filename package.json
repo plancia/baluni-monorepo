@@ -1,0 +1,14 @@
+{
+  "name": "baluni-monorepo",
+  "version": "0.0.0",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "@nx/js": "19.5.0",
+    "nx": "19.5.0"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "packageManager": "yarn@4.3.1"
+}
