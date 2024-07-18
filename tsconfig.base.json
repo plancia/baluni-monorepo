@@ -14,6 +14,7 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
+    "resolveJsonModule": true,
     "paths": {
       "baluni-contracts": ["packages/baluni-contracts/src/index.ts"],
       "baluni-hypervisor-contracts": [
