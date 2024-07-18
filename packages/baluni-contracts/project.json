@@ -1,0 +1,19 @@
+{
+  "name": "baluni-contracts",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/baluni-contracts/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/baluni-contracts",
+        "main": "packages/baluni-contracts/src/index.ts",
+        "tsConfig": "packages/baluni-contracts/tsconfig.lib.json",
+        "assets": ["packages/baluni-contracts/*.md"]
+      }
+    }
+  }
+}
