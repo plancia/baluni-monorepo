@@ -1,0 +1,19 @@
+{
+  "name": "baluni-hypervisor-contracts",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/baluni-hypervisor-contracts/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/baluni-hypervisor-contracts",
+        "main": "packages/baluni-hypervisor-contracts/src/index.ts",
+        "tsConfig": "packages/baluni-hypervisor-contracts/tsconfig.lib.json",
+        "assets": ["packages/baluni-hypervisor-contracts/*.md"]
+      }
+    }
+  }
+}
