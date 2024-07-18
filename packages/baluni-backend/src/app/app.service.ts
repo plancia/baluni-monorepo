@@ -1,6 +1,7 @@
 import { ConnectionManager } from '@homeofthings/nestjs-sqlite3';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { StatsRepository } from './repository/stats.repository';
+import { TasksService } from './tasks/FetchInterestEarnedTask';
 // import { calculateStatistics } from './calculateStatistics';
 // import { anotherFunction, baluniContracts } from 'baluni-contracts';
 @Injectable()

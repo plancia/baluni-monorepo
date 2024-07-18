@@ -11,6 +11,7 @@ import { fsync } from 'fs';
 import fs from 'fs';
 import { StatsRepository } from './repository/stats.repository';
 import { ScheduleModule } from '@nestjs/schedule';
+import { TasksService } from './tasks/FetchInterestEarnedTask';
 
 @Module({
   imports: [
@@ -26,6 +27,6 @@ import { ScheduleModule } from '@nestjs/schedule';
     }),
   ],
   controllers: [AppController],
-  providers: [AppService, StatsRepository],
+  providers: [AppService, StatsRepository, TasksService],
 })
 export class AppModule {}

@@ -1,3 +1,3 @@
-export function baluniContracts(): string {
+export function fakeMethod(): string {
   return 'baluni-contracts';
 }

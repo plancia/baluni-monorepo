@@ -7,7 +7,7 @@ import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app/app.module';
-import { testContract } from 'baluni-contracts';
+import { baluniContracts, testContract } from 'baluni-contracts';
 // import { testContract } from 'baluni-contracts';
 
 async function bootstrap() {
@@ -17,7 +17,7 @@ async function bootstrap() {
   app.setGlobalPrefix(globalPrefix);
   const port = process.env.PORT || 3001;
   await app.listen(port);
-  console.log('############## testContract is', testContract);
+
   // console.log('testContract is', testContract);
   Logger.log(
     `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`
