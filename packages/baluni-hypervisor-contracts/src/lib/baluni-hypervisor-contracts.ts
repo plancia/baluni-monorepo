@@ -1,3 +1,3 @@
-export function baluniHypervisorContracts(): string {
+export function hello(): string {
   return 'baluni-hypervisor-contracts';
 }

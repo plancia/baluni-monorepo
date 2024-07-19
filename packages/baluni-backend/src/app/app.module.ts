@@ -18,6 +18,7 @@ import { TotalValuationRepository } from './repositories/total-valuation-reposit
 import { UnitPriceRepository } from './repositories/unit-price-repository';
 import { RecurringTasksService } from './tasks/RecurringTasks';
 import { DeleteAllRecordsRepository } from './repositories/delete-old-records.repository';
+import { GraphQlModule } from '../graph-ql/graph-ql.module';
 
 @Module({
   imports: [
@@ -31,8 +32,10 @@ import { DeleteAllRecordsRepository } from './repositories/delete-old-records.re
       },
       inject: [], // optional inject params for useFactory method
     }),
+    GraphQlModule
   ],
   controllers: [AppController],
+  
   providers: [
     {
       provide: 'rpcProvider',
