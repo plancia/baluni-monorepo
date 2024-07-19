@@ -1,17 +1,23 @@
 import { Module } from '@nestjs/common';
 
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import {
   Sqlite3ConnectionOptions,
   Sqlite3Module,
 } from '@homeofthings/nestjs-sqlite3';
-import path from 'path';
-import { fsync } from 'fs';
-import fs from 'fs';
-import { StatsRepository } from './repository/stats.repository';
 import { ScheduleModule } from '@nestjs/schedule';
-import { TasksService } from './tasks/FetchInterestEarnedTask';
+import { ethers } from 'ethers';
+import path from 'path';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { DcaRepository } from './repositories/dca.repository';
+import { InterestEarnedRepository } from './repositories/interest-earned.repository';
+import { PoolRebalanceRepository } from './repositories/pool-rebalance-repository';
+import { ReinverstEarningsRespository } from './repositories/reinvest-earnings.repository';
+import { StatsRepository } from './repositories/stats.repository';
+import { TotalValuationRepository } from './repositories/total-valuation-repository';
+import { UnitPriceRepository } from './repositories/unit-price-repository';
+import { RecurringTasksService } from './tasks/RecurringTasks';
+import { DeleteAllRecordsRepository } from './repositories/delete-old-records.repository';
 
 @Module({
   imports: [
@@ -27,6 +33,37 @@ import { TasksService } from './tasks/FetchInterestEarnedTask';
     }),
   ],
   controllers: [AppController],
-  providers: [AppService, StatsRepository, TasksService],
+  providers: [
+    {
+      provide: 'rpcProvider',
+      useFactory: async () => {
+        const provider = new ethers.providers.JsonRpcProvider(
+          String(process.env.RPC_URL)
+        );
+        return provider;
+      },
+    },
+    {
+      provide: 'wallet',
+      useFactory: async (rpcProvider: ethers.providers.JsonRpcProvider) => {
+        const wallet = new ethers.Wallet(
+          String(process.env.PRIVATE_KEY),
+          rpcProvider
+        );
+        return wallet;
+      },
+      inject: ['rpcProvider'],
+    },
+    AppService,
+    StatsRepository,
+    RecurringTasksService,
+    InterestEarnedRepository,
+    PoolRebalanceRepository,
+    ReinverstEarningsRespository,
+    TotalValuationRepository,
+    UnitPriceRepository,
+    DcaRepository,
+    DeleteAllRecordsRepository
+  ],
 })
 export class AppModule {}

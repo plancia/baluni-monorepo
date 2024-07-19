@@ -1,14 +1,16 @@
 import { ConnectionManager } from '@homeofthings/nestjs-sqlite3';
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { StatsRepository } from './repository/stats.repository';
-import { TasksService } from './tasks/FetchInterestEarnedTask';
+import { StatsRepository } from './repositories/stats.repository';
+import { RecurringTasksService } from './tasks/RecurringTasks';
+import { InterestEarnedRepository } from './repositories/interest-earned.repository';
 // import { calculateStatistics } from './calculateStatistics';
 // import { anotherFunction, baluniContracts } from 'baluni-contracts';
 @Injectable()
 export class AppService {
   constructor(
     private connectionManager: ConnectionManager,
-    private statsRepository: StatsRepository
+    private statsRepository: StatsRepository,
+    private reporepo: InterestEarnedRepository
   ) {}
 
   getData(): { message: string } {

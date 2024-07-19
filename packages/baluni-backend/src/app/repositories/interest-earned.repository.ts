@@ -1,40 +1,22 @@
 import { ConnectionManager } from '@homeofthings/nestjs-sqlite3';
-import { Injectable, Logger } from '@nestjs/common';
-import { Cron, CronExpression } from '@nestjs/schedule';
-import { Contract, ethers } from 'ethers';
-// import { open } from "sqlite";
+import { Inject, Injectable } from '@nestjs/common';
 import { baluniVaultAbi, baluniVaultRegistryAbi } from 'baluni-contracts';
-import { formatUnits } from 'ethers/lib/utils';
-import { erc20Abi } from 'viem';
-import { setupRegistry } from './setupRegistry';
-// import { setupRegistry } from './setupRegistry';
+import { ethers } from 'ethers';
+import { erc20Abi, formatUnits } from 'viem';
+import { BaseWeb3Repository } from './base-web3-repository';
 
 @Injectable()
-export class TasksService {
-  provider: ethers.providers.JsonRpcProvider;
-  signer: ethers.Wallet;
-  registryCtx: Contract | null | undefined = null;
-
-  constructor(private connectionManager: ConnectionManager) {
-    this.provider = new ethers.providers.JsonRpcProvider(
-      String(process.env.RPC_URL)
-    );
-    this.signer = new ethers.Wallet(
-      String(process.env.PRIVATE_KEY),
-      this.provider
-    );
-  }
-  private readonly logger = new Logger(TasksService.name);
-
-  @Cron(CronExpression.EVERY_5_SECONDS)
-  handleCron() {
-    console.log('ciao');
-    this.logger.debug('Called when the current second is 45');
-    this.fetchInterestEarned();
+export class InterestEarnedRepository extends BaseWeb3Repository {
+  constructor(
+    private connectionManager: ConnectionManager,
+    @Inject('rpcProvider') protected provider,
+    @Inject('wallet') protected signer
+  ) {
+    super(provider, signer);
   }
 
   async fetchInterestEarned() {
-    this.registryCtx = await setupRegistry(this.provider, this.signer);
+    await this.initRegistry();
 
     if (!this.registryCtx) {
       console.error('Registry context not initialized');
