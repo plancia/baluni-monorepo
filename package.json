@@ -4,7 +4,9 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "backend:dev": "yarn nx run baluni-backend:serve --configuration=development"
+    "backend:dev": "yarn nx run baluni-backend:serve --configuration=development",
+    "build:baluni-contracts": "yarn nx run baluni-contracts:build",
+    "build:baluni-hypervisor-contracts": "yarn nx run baluni-hypervisor-contracts:build"
   },
   "devDependencies": {
     "@nestjs/schematics": "^10.0.1",

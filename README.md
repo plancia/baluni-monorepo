@@ -15,11 +15,18 @@ from the root of the project, run the following command:
 yarn backend:dev
 ```
 
-### HOW TO BUILD BALUNI CONTRACTS
-TODO
+### Build baluni contracts
+from the root of the project, run the following command:
 
-### HOW TO BUILD BALUNI HYPERVISOR CONTRACTS
-TODO
+```bash
+yarn build:baluni-contracts
+```
+### Build baluni hypervisor contracts
+from the root of the project, run the following command:
+
+```bash
+yarn build:baluni-hypervisor-contracts
+```
 
 ## Integrate with editors
 
