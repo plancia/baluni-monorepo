@@ -1,20 +1,18 @@
-import { ConnectionManager } from '@homeofthings/nestjs-sqlite3';
 import { Inject, Injectable } from '@nestjs/common';
 import { ethers } from 'ethers';
-import { BaseWeb3Repository } from './base-web3-repository';
+import { BaseWeb3Task } from './base-web3.task';
 import { baluniContracts } from 'baluni-contracts';
 
 @Injectable()
-export class DcaRepository extends BaseWeb3Repository {
+export class ReinverstEarningsTask extends BaseWeb3Task {
   constructor(
-    private connectionManager: ConnectionManager,
     @Inject('rpcProvider') protected provider,
     @Inject('wallet') protected signer
   ) {
     super(provider, signer);
   }
 
-  async dcaExecutor() {
+  async execute() {
     await this.initRegistry();
 
     if (!this.registryCtx) {
@@ -23,35 +21,47 @@ export class DcaRepository extends BaseWeb3Repository {
     }
 
     try {
-      const dcaVaultRegistry =
-        await this.registryCtx.getBaluniDCAVaultRegistry();
-      const dcaVaultRegistryCtx = new ethers.Contract(
-        String(dcaVaultRegistry),
-        baluniContracts.baluniDCAVaultRegistryAbi.abi,
+      const yearnVaultRegistry =
+        await this.registryCtx.getBaluniYearnVaultRegistry();
+      const yearnVaultRegistryCtx = new ethers.Contract(
+        String(yearnVaultRegistry),
+        baluniContracts.baluniYearnVaultRegistryAbi.abi,
         this.provider
       );
-      const vaults = await dcaVaultRegistryCtx.getAllVaults();
+      const vaults = await yearnVaultRegistryCtx.getAllVaults();
 
       for (const vault of vaults) {
         const vaultContract = new ethers.Contract(
           vault,
-          baluniContracts.baluniDCAVaultAbi.abi,
+          baluniContracts.baluniYearnVaultAbi.abi,
           this.signer
         );
+        const baseAsset = await vaultContract.baseAsset();
+        const baseAssetCtx = new ethers.Contract(
+          baseAsset,
+          baluniContracts.erc20Abi,
+          this.provider
+        );
+        const baseDecimals = await baseAssetCtx.decimals();
 
         try {
-          const dcaTrigger = await vaultContract.canSystemDeposit();
-          console.log('DCA Trigger:', vault, dcaTrigger);
+          const interestEarned = await vaultContract.interestEarned();
+          console.log(
+            'Interest Earned:',
+            ethers.utils.formatUnits(interestEarned, baseDecimals)
+          );
 
-          if (dcaTrigger) {
-            // Simulate the transaction
-            const gasEstimate = await vaultContract.estimateGas.systemDeposit();
+          if (
+            Number(ethers.utils.formatUnits(interestEarned, baseDecimals)) >
+            0.01
+          ) {
+            const gasEstimate = await vaultContract.estimateGas.buy();
             console.log(
               `Estimated gas for systemDeposit in vault ${vault}: ${gasEstimate.toString()}`
             );
 
             // Call static method to simulate
-            await vaultContract.callStatic.systemDeposit();
+            await vaultContract.callStatic.buy();
             console.log(`Simulation successful for vault: ${vault}`);
 
             const gasPrice = await this.provider.getGasPrice();
@@ -59,8 +69,8 @@ export class DcaRepository extends BaseWeb3Repository {
             const gasLimit = gasEstimate.mul(120).div(100); // Add 20% buffer
 
             // If simulation is successful, send the transaction
-            const tx = await vaultContract.systemDeposit({
-              gasLimit,
+            const tx = await vaultContract.buy({
+              gasLimit: gasLimit,
               gasPrice,
             });
             console.log(
@@ -73,11 +83,11 @@ export class DcaRepository extends BaseWeb3Repository {
             );
           }
         } catch (error) {
-          console.error(`Error executing DCA for vault ${vault}:`, error);
+          console.error(`Error executing Reinvest for vault ${vault}:`, error);
         }
       }
     } catch (error) {
-      console.error('Error fetching vaults or DCA vault registry:', error);
+      console.error('Error fetching vaults or vault registry:', error);
     }
   }
 }

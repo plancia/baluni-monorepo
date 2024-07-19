@@ -1,11 +1,14 @@
 import { ConnectionManager } from '@homeofthings/nestjs-sqlite3';
 import { Injectable } from '@nestjs/common';
+import { BaseTask } from './base.task';
 
 @Injectable()
-export class DeleteAllRecordsRepository {
-  constructor(private connectionManager: ConnectionManager) {}
+export class DeleteAllRecordsTask extends BaseTask {
+  constructor(private connectionManager: ConnectionManager) {
+    super();
+  }
 
-  async deleteOldRecords() {
+  async execute() {
     try {
       const db = await this.connectionManager.getConnectionPool().get();
 

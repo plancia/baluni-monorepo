@@ -3,10 +3,10 @@ import { Inject, Injectable } from '@nestjs/common';
 import { baluniContracts, baluniVaultAbi, baluniVaultRegistryAbi } from 'baluni-contracts';
 import { Contract, ethers } from 'ethers';
 import { formatUnits } from 'viem';
-import { BaseWeb3Repository } from './base-web3-repository';
+import { BaseWeb3Task } from './base-web3.task';
 
 @Injectable()
-export class TotalValuationRepository extends BaseWeb3Repository {
+export class TotalValuationTask extends BaseWeb3Task {
   constructor(
     private connectionManager: ConnectionManager,
     @Inject('rpcProvider') protected provider,
@@ -46,7 +46,7 @@ export class TotalValuationRepository extends BaseWeb3Repository {
     }
   }
 
-  async fetchTotalValuation() {
+  async execute() {
     await this.initRegistry();
 
     if (!this.registryCtx) {

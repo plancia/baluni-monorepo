@@ -1,11 +1,13 @@
+import { gql } from '@apollo/client/core';
 import { ConnectionManager } from '@homeofthings/nestjs-sqlite3';
 import { Inject, Injectable } from '@nestjs/common';
-import { baluniContracts, baluniVaultAbi, baluniVaultRegistryAbi } from 'baluni-contracts';
+import {
+  baluniContracts
+} from 'baluni-contracts';
+import { baluniHypervisorContracts } from 'baluni-hypervisor-contracts';
 import { BigNumber, ethers } from 'ethers';
 import { erc20Abi, formatUnits } from 'viem';
-import { BaseWeb3Repository } from './base-web3-repository';
-import { baluniHypervisorContracts } from 'baluni-hypervisor-contracts';
-import { gql } from '@apollo/client';
+import { BaseWeb3Task } from './base-web3.task';
 
 export interface Token {
   id: string;
@@ -59,7 +61,8 @@ export const GET_POOL_DATA = gql`
 `;
 
 @Injectable()
-export class HyperPoolsRepository extends BaseWeb3Repository {
+export class HyperPoolsTask extends BaseWeb3Task {
+  // client: any;
   constructor(
     private connectionManager: ConnectionManager,
     @Inject('rpcProvider') protected provider,
@@ -155,7 +158,7 @@ export class HyperPoolsRepository extends BaseWeb3Repository {
     const currentPrice = this.tickToPrice(currentTick);
 
     const baluniOracle = new ethers.Contract(
-      baluniContracts.contractsBaluni[137].BaluniV1Oracle,
+      baluniContracts.baluniDeploiedContracts[137].BaluniV1Oracle,
       baluniContracts.baluniOracleAbi.abi,
       this.signer
     );
@@ -259,8 +262,8 @@ export class HyperPoolsRepository extends BaseWeb3Repository {
     return data;
   }
 
-  async fetchHyperPools() {
-    await this.initRegistry()
+  async execute() {
+    await this.initRegistry();
 
     console.log('Fetching data from Baluni Hypervisors Pools...');
     const db = await this.connectionManager.getConnectionPool().get();
@@ -320,7 +323,7 @@ export class HyperPoolsRepository extends BaseWeb3Repository {
             );
             const token1Decimals = await token1Ctx.decimals();
 
-            const univ3prices = require("@thanpolas/univ3prices");
+            const univ3prices = require('@thanpolas/univ3prices');
             const formattedPrice = univ3prices(
               [token0Decimals, token1Decimals],
               pool.sqrtPrice

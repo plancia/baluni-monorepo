@@ -15,8 +15,10 @@ import * as baluniYearnVaultRegistryAbi from '../artifacts/contracts/registry/Ba
 import * as baluniYearnVaultAbi from '../artifacts/contracts/vaults/BaluniV1YearnVault.sol/BaluniV1YearnVault.json';
 import * as erc20Abi from '../abis/common/ERC20.json';
 
-import * as contractsBaluni from 'baluni-contracts/deployments/deployedContracts.json';
+import * as baluniDeploiedContracts from 'baluni-contracts/deployments/deployedContracts.json';
 import * as baluniOracleAbi from 'baluni-contracts/artifacts/contracts/oracles/BaluniV1Oracle.sol/BaluniV1Oracle.json';
+
+import * as baluniRegistryAbi from 'baluni-contracts/artifacts/contracts/registry/BaluniV1Registry.sol/BaluniV1Registry.json';
 
 export const baluniContracts = {
   baluniVaultRegistryAbi,
@@ -30,7 +32,8 @@ export const baluniContracts = {
   baluniYearnVaultRegistryAbi,
   baluniYearnVaultAbi,
   erc20Abi,
-  contractsBaluni,
+  baluniDeploiedContracts,
   baluniOracleAbi,
+  baluniRegistryAbi
 };
 export { testContract, baluniVaultRegistryAbi, baluniVaultAbi };

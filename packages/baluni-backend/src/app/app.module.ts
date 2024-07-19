@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 
+import { ApolloClient, InMemoryCache } from '@apollo/client/core';
 import {
   Sqlite3ConnectionOptions,
   Sqlite3Module,
@@ -9,16 +10,16 @@ import { ethers } from 'ethers';
 import path from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { DcaRepository } from './repositories/dca.repository';
-import { InterestEarnedRepository } from './repositories/interest-earned.repository';
-import { PoolRebalanceRepository } from './repositories/pool-rebalance-repository';
-import { ReinverstEarningsRespository } from './repositories/reinvest-earnings.repository';
 import { StatsRepository } from './repositories/stats.repository';
-import { TotalValuationRepository } from './repositories/total-valuation-repository';
-import { UnitPriceRepository } from './repositories/unit-price-repository';
-import { RecurringTasksService } from './tasks/RecurringTasks';
-import { DeleteAllRecordsRepository } from './repositories/delete-old-records.repository';
-import { GraphQlModule } from '../graph-ql/graph-ql.module';
+import { DcaTask } from './tasks/impl/dca.task';
+import { DeleteAllRecordsTask } from './tasks/impl/delete-old-records.task';
+import { HyperPoolsTask } from './tasks/impl/hyper-pools.task';
+import { InterestEarnedTask } from './tasks/impl/interest-earned.task';
+import { PoolRebalanceTask } from './tasks/impl/pool-rebalance.task';
+import { ReinverstEarningsTask } from './tasks/impl/reinvest-earnings.task';
+import { TotalValuationTask } from './tasks/impl/total-valuation.task';
+import { UnitPriceTask } from './tasks/impl/unit-price.task';
+import { RecurringTasksService } from './tasks/RecurringTasksService';
 
 @Module({
   imports: [
@@ -32,10 +33,9 @@ import { GraphQlModule } from '../graph-ql/graph-ql.module';
       },
       inject: [], // optional inject params for useFactory method
     }),
-    GraphQlModule
   ],
   controllers: [AppController],
-  
+
   providers: [
     {
       provide: 'rpcProvider',
@@ -57,16 +57,28 @@ import { GraphQlModule } from '../graph-ql/graph-ql.module';
       },
       inject: ['rpcProvider'],
     },
+    {
+      provide: 'gql',
+      useFactory: async () => {
+        const UNISWAP_GRAPHQL_ENDPOINT = process.env.UNISWAP_GRAPHQL_ENDPOINT;
+        const client = new ApolloClient({
+          uri: UNISWAP_GRAPHQL_ENDPOINT,
+          cache: new InMemoryCache(),
+        });
+        return client;
+      },
+    },
     AppService,
     StatsRepository,
     RecurringTasksService,
-    InterestEarnedRepository,
-    PoolRebalanceRepository,
-    ReinverstEarningsRespository,
-    TotalValuationRepository,
-    UnitPriceRepository,
-    DcaRepository,
-    DeleteAllRecordsRepository
+    InterestEarnedTask,
+    PoolRebalanceTask,
+    ReinverstEarningsTask,
+    TotalValuationTask,
+    UnitPriceTask,
+    DcaTask,
+    DeleteAllRecordsTask,
+    HyperPoolsTask,
   ],
 })
 export class AppModule {}

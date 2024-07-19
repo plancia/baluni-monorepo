@@ -1,10 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ethers } from 'ethers';
-import { BaseWeb3Repository } from './base-web3-repository';
+import { BaseWeb3Task } from './base-web3.task';
 import { baluniContracts } from 'baluni-contracts';
 
 @Injectable()
-export class PoolRebalanceRepository extends BaseWeb3Repository {
+export class PoolRebalanceTask extends BaseWeb3Task {
   constructor(
     @Inject('rpcProvider') protected provider,
     @Inject('wallet') protected signer
@@ -12,7 +12,7 @@ export class PoolRebalanceRepository extends BaseWeb3Repository {
     super(provider, signer);
   }
 
-  async rebalancePools() {
+  async execute() {
     await this.initRegistry();
 
     if (!this.registryCtx) {
