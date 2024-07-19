@@ -11,6 +11,10 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "incremental": true,
+    "baseUrl": ".",
+    "paths": {
+      "~~/*": ["./*"]
+    },
     "plugins": [
       {
         "name": "next"
@@ -25,7 +29,8 @@
     "**/*.jsx",
     "../../packages/baluni-web/.next/types/**/*.ts",
     "../../dist/packages/baluni-web/.next/types/**/*.ts",
-    "next-env.d.ts"
+    "next-env.d.ts",
+    ".next/types/**/*.ts"
   ],
   "exclude": ["node_modules", "jest.config.ts", "**/*.spec.ts", "**/*.test.ts"]
 }
