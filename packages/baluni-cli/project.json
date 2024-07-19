@@ -1,0 +1,56 @@
+{
+  "name": "baluni-cli",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/baluni-cli/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "platform": "node",
+        "outputPath": "dist/packages/baluni-cli",
+        "format": ["cjs"],
+        "bundle": false,
+        "main": "packages/baluni-cli/src/main.ts",
+        "tsConfig": "packages/baluni-cli/tsconfig.app.json",
+        "assets": ["packages/baluni-cli/src/assets"],
+        "generatePackageJson": true,
+        "esbuildOptions": {
+          "sourcemap": true,
+          "outExtension": {
+            ".js": ".js"
+          }
+        }
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "esbuildOptions": {
+            "sourcemap": false,
+            "outExtension": {
+              ".js": ".js"
+            }
+          }
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "baluni-cli:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "baluni-cli:build:development"
+        },
+        "production": {
+          "buildTarget": "baluni-cli:build:production"
+        }
+      }
+    }
+  }
+}

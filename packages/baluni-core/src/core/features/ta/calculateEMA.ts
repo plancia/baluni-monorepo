@@ -103,7 +103,7 @@ const vwapCrossEMA = async (symbol: string, config: any) => {
   }
 }
 
-module.exports = {
+export {
   emaCross,
   priceCrossEMA,
   vwapCrossEMA,
