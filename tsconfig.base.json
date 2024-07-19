@@ -17,6 +17,7 @@
     "resolveJsonModule": true,
     "paths": {
       "baluni-contracts": ["packages/baluni-contracts/src/index.ts"],
+      "baluni-core": ["packages/baluni-core/src/index.ts"],
       "baluni-hypervisor-contracts": [
         "packages/baluni-hypervisor-contracts/src/index.ts"
       ]
