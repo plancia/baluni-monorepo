@@ -54,7 +54,6 @@
     "solidity-coverage": "^0.8.5",
     "ts-node": "^10.9.1",
     "typechain": "^8.1.0",
-    "typescript": "^5.1.6",
     "viem": "^1.19.9"
   },
   "type": "commonjs",
