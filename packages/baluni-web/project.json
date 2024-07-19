@@ -1,0 +1,9 @@
+{
+  "name": "baluni-web",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/baluni-web",
+  "projectType": "application",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project baluni-web --web",
+  "targets": {}
+}
