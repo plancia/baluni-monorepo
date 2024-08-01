@@ -1,3 +1,4 @@
+import { baluniContracts } from 'baluni-contracts';
 import {
   InfraConfig,
   GeneralCOnfig,
@@ -5,8 +6,8 @@ import {
   NetworkConfig,
   OracleConfig,
 } from './types/constants';
-import { baluniContracts } from 'baluni-contracts';
-// import * as deployedContracts from 'baluni-contracts/deployments/deployedContracts.json'
+// import { baluniContracts } from 'baluni-contracts';
+// import deployedContracts from 'baluni-contracts/deployments/deployedContracts.json'
 
 export const BASEURL = 'https://baluni-api.scobrudot.dev';
 

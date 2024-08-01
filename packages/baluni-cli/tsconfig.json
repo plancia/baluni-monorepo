@@ -11,8 +11,25 @@
     }
   ],
   "compilerOptions": {
-    "module": "CommonJS",
+    "module": "ESNext",
+    "target": "ESNext",
     "esModuleInterop": false,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "paths": {
+      "baluni-contracts": ["packages/baluni-contracts/src/index.ts"],
+      "baluni-core": ["packages/baluni-core/src/index.ts"],
+      "baluni-core/types": ["packages/baluni-core/src/core/types/index.ts"],
+      "baluni-core/strategies": [
+        "packages/baluni-core/src/core/strategies/index.ts"
+      ],
+      "baluni-core/api": ["packages/baluni-core/src/api/index.ts"],
+      // "baluni-core/core": ["packages/baluni-core/src/core/index.ts"],
+      "baluni-core/utils": ["packages/baluni-core/src/core/utils/index.ts"],
+      "baluni-core/utils/web3": [
+        "packages/baluni-core/src/core/utils/web3/index.ts"
+      ]
+    }
   }
 }

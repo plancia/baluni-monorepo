@@ -35,4 +35,25 @@ export class AppController {
   getStatistics() {
     return this.appService.getStatistics();
   }
+
+  @Get('uniswap-token')
+  getUniswapToken(chainId:number, symbol:string) {
+    return this.appService.getUniswapToken(chainId,symbol)
+  }
+
+  @Get('uniswap-tokens')
+  getUniswapTokens(chainId:number) {
+    return this.appService.getUniswapTokens(chainId)
+  }
+
+  @Get('yearn-vault')
+  getYearnVault(chainId:number, symbol:string, strategyType?:string, boosted?:string) {
+    return this.appService.getYearnVaults(chainId, symbol, strategyType, boosted )
+  }
+
+  @Get('yearn-vaults')
+  getYearnVaults(chainId:number) {
+    return this.appService.getYearnVaults(chainId)
+  }
+
 }

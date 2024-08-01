@@ -62,7 +62,7 @@ interface Token {
   logoURI: string;
 }
 
-const HypervisorPage = () => {
+const HyperPoolBox = () => {
   const { data: signer } = useWalletClient();
   const { tokens } = useTokenList();
 
@@ -817,4 +817,4 @@ const HypervisorPage = () => {
   );
 };
 
-export default HypervisorPage;
+export default HyperPoolBox;

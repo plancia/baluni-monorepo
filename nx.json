@@ -33,7 +33,8 @@
       "exclude": [
         "packages/baluni-backend-e2e/**/*",
         "packages/baluni-cli-e2e/**/*",
-        "packages/baluni-cli-e2e/**/*"
+        "packages/baluni-cli-e2e/**/*",
+        "packages/baluni-cli2-e2e/**/*"
       ]
     },
     {
@@ -58,6 +59,12 @@
       "options": {
         "targetName": "e2e"
       }
+    },
+    {
+      "plugin": "@nx/rollup/plugin",
+      "options": {
+        "buildTargetName": "build"
+      }
     }
   ],
   "generators": {
@@ -67,5 +74,6 @@
         "linter": "eslint"
       }
     }
-  }
+  },
+  "useDaemonProcess": false
 }

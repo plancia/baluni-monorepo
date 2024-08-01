@@ -1,0 +1,10 @@
+const ClonesUpgradeable = {
+  "_format": "hh-sol-artifact-1",
+  "contractName": "ClonesUpgradeable",
+  "sourceName": "contracts/libs/ClonesUpgradeable.sol",
+  "abi": [],
+  "bytecode": "0x608060405234601d57600e6021565b603e602c823930815050603e90f35b6027565b60405190565b5f80fdfe60806040525f80fdfea26469706673582212203b272e4ccf24b9e3b0b7faa004900228ef7a82000fb7d65596e27aefa4cf8b0d64736f6c63430008190033",
+  "deployedBytecode": "0x60806040525f80fdfea26469706673582212203b272e4ccf24b9e3b0b7faa004900228ef7a82000fb7d65596e27aefa4cf8b0d64736f6c63430008190033",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+} as const; export default ClonesUpgradeable;

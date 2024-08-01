@@ -472,7 +472,7 @@ const MultiSwapBox = () => {
         }
       }
 
-      notification.remove(not1);
+      notification.remove(laod);
 
       if (result.detail) {
         notification.error(result.detail);

@@ -1,0 +1,100 @@
+{
+  "SELECTED_PROTOCOL": "uni-v3",
+  "SELECTED_CHAINID": 137,
+  "TOKENS": [
+    "WETH",
+    "WBTC",
+    "WMATIC",
+    "COMP",
+    "UNI",
+    "AAVE",
+    "YFI",
+    "MKR",
+    "BAL",
+    "BNT",
+    "LINK",
+    "CRV",
+    "SNX",
+    "MANA",
+    "GRT",
+    "USDC.E"
+  ],
+  "WEIGHTS_UP": {
+    "WETH": 500,
+    "WBTC": 1000,
+    "WMATIC": 500,
+    "COMP": 1000,
+    "UNI": 500,
+    "AAVE": 1000,
+    "YFI": 1000,
+    "MKR": 500,
+    "BAL": 500,
+    "BNT": 500,
+    "LINK": 500,
+    "CRV": 500,
+    "SNX": 500,
+    "MANA": 500,
+    "GRT": 500,
+    "USDC.E": 500
+  },
+  "WEIGHTS_DOWN": {
+    "WETH": 0,
+    "WBTC": 0,
+    "WMATIC": 0,
+    "COMP": 0,
+    "UNI": 0,
+    "AAVE": 0,
+    "YFI": 0,
+    "MKR": 0,
+    "BAL": 0,
+    "BNT": 0,
+    "LINK": 0,
+    "CRV": 0,
+    "SNX": 0,
+    "MANA": 0,
+    "GRT": 0,
+    "USDC.E": 10000
+  },
+  "YEARN_ENABLED": true,
+  "YEARN_VAULTS": {
+    "137": {
+      "USDC": {
+        "strategy": "multi",
+        "boosted": true
+      },
+      "USDC.E": {
+        "strategy": "multi",
+        "boosted": false
+      },
+      "WETH": {
+        "strategy": "multi",
+        "boosted": true
+      },
+      "WMATIC": {
+        "strategy": "multi",
+        "boosted": true
+      }
+    }
+  },
+  "LIMIT": 10,
+  "SLIPPAGE": 1000,
+  "INTERVAL": 300000,
+  "MAX_APPROVAL": true,
+  "INVESTMENT_INTERVAL": 86400000,
+  "INVESTMENT_AMOUNT": 100,
+  "TREND_FOLLOWING": false,
+  "KST_TIMEFRAME": "1h",
+  "PREDICTION": false,
+  "PREDICTION_PERIOD": 90,
+  "PREDICTION_EPOCHS": 100,
+  "PREDICTION_SYMBOL": "bitcoin",
+  "PREDICTION_ALGO": "REGR",
+  "TECNICAL_ANALYSIS": false,
+  "RSI_PERIOD": 4,
+  "RSI_OVERBOUGHT": 70,
+  "RSI_OVERSOLD": 30,
+  "RSI_TIMEFRAME": "5m",
+  "STOCKRSI_PERIOD": 14,
+  "STOCKRSI_OVERBOUGHT": 80,
+  "STOCKRSI_OVERSOLD": 20
+}

@@ -1,19 +1,21 @@
-import * as RouterABI from 'baluni-contracts/artifacts/contracts/orchestators/BaluniV1Router.sol/BaluniV1Router.json'
-import * as AgentABI from 'baluni-contracts/artifacts/contracts/orchestators/BaluniV1Agent.sol/BaluniV1Agent.json'
-import * as RegistryABI from 'baluni-contracts/artifacts/contracts/registry/BaluniV1Registry.sol/BaluniV1Registry.json'
-import * as OffChainOracleAbi from './abis/1inch/OffChainOracle.json'
-export { RouterABI, AgentABI, OffChainOracleAbi, RegistryABI }
-export { buildSwapOdos } from './odos'
-export { buildSwapUniswap } from './uniswap'
+import RouterABI from 'baluni-contracts/artifacts/contracts/orchestators/BaluniV1Router.sol/BaluniV1Router.json';
+import AgentABI from 'baluni-contracts/artifacts/contracts/orchestators/BaluniV1Agent.sol/BaluniV1Agent.json';
+import RegistryABI from 'baluni-contracts/artifacts/contracts/registry/BaluniV1Registry.sol/BaluniV1Registry.json';
+import OffChainOracleAbi from './abis/1inch/OffChainOracle.json';
+export { RouterABI, AgentABI, OffChainOracleAbi, RegistryABI };
 export {
-  depositToYearn,
-  depositToYearnBatched,
-  redeemFromYearn,
-  redeemFromYearnBatched,
-  accuredYearnInterest,
-  previewWithdraw,
-  getVaultAsset,
-} from './yearn/vault'
+  SwapTokenLogic as SwapTokenLogicOdos,
+  QuoteParams,
+  QuoteRequestBody,
+  QuoteRequestResponse,
+} from './logics/odos';
+export { SwapTokenLogic as SwapTokenLogicUniswap } from './logics/uniswap';
+export {
+  DepositTokenLogic as DepositTokenLogicYearn,
+  RedeemTokenLogic as RedeemTokenLogicYearn,
+  VaultStats as VaultStatsYearn,
+} from './logics/yearn';
+export * from './classes/builder';
 
 export {
   INFRA,
@@ -24,4 +26,4 @@ export {
   BASEURL,
   TOKENS_URL,
   USDC,
-} from './constants'
+} from './constants';

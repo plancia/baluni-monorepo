@@ -1,0 +1,13 @@
+diff --git a/dist/core/utils/prettyConsole.js b/dist/core/utils/prettyConsole.js
+index 2e2e5e53533ba9030c25431445e251ebc0275102..2d460a57338f6195b6488be534127332b3000f09 100644
+--- a/dist/core/utils/prettyConsole.js
++++ b/dist/core/utils/prettyConsole.js
+@@ -1,7 +1,7 @@
+ "use strict";
+ Object.defineProperty(exports, "__esModule", { value: true });
+ exports.loadPrettyConsole = exports.PrettyConsole = void 0;
+-const fs = require('fs');
++
+ class PrettyConsole {
+     constructor() {
+         this.closeByNewLine = true;

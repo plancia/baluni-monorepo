@@ -8,11 +8,19 @@
     "noPropertyAccessFromIndexSignature": false,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "module": "CommonJS"
+    "module": "CommonJS",
+    "paths": {
+      "baluni-core": ["packages/baluni-core/src/index.ts"],
+      "baluni-core/api": ["packages/baluni-core/src/api/index.ts"]
+    }
   },
   "files": [],
-  "include": [],
-  
+  "include": [
+    "packages/baluni-core/src/api/*.ts",
+    "packages/baluni-core/src/core/utils/*.ts",
+    "packages/baluni-core/src/core/types/*.ts"
+  ],
+
   "references": [
     {
       "path": "./tsconfig.lib.json"

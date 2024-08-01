@@ -37,21 +37,21 @@ async function getABI(contractAddress: string, fileName: string) {
   }
 }
 
-const contractAddress = process.argv[2]
-const fileName = process.argv[3]
+// const contractAddress = process.argv[2]
+// const fileName = process.argv[3]
 
-async function main() {
-  if (!contractAddress) {
-    console.log(chalk.red('Contract address is missing'))
-    return
-  }
+// async function main() {
+//   if (!contractAddress) {
+//     console.log(chalk.red('Contract address is missing'))
+//     return
+//   }
 
-  if (!fileName) {
-    console.log(chalk.red('File name is missing'))
-    return
-  }
+//   if (!fileName) {
+//     console.log(chalk.red('File name is missing'))
+//     return
+//   }
 
-  await getABI(contractAddress, fileName)
-}
+//   await getABI(contractAddress, fileName)
+// }
 
-main()
+// main()

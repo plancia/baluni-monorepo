@@ -17,11 +17,19 @@
     "resolveJsonModule": true,
     "paths": {
       "baluni-contracts": ["packages/baluni-contracts/src/index.ts"],
-      "baluni-core": ["packages/baluni-core/src/index.ts"],
+      "baluni-core": ["packages/baluni-core/src/prova/index.ts"],
+      "baluni-core/api": ["packages/baluni-core/src/api/index.ts"],
+      "baluni-core/strategies": [
+        "packages/baluni-core/src/core/strategies/index.ts"
+      ],
       "baluni-hypervisor-contracts": [
         "packages/baluni-hypervisor-contracts/src/index.ts"
       ]
     }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": [
+    "node_modules",
+    "tmp",
+    "packages/baluni-contracts/artifacts/**/*.*"
+  ]
 }

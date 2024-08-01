@@ -11,6 +11,9 @@
   },
   "files": [],
   "include": [],
+  "exclude": [
+    "artifacts/**/*.*"
+  ],
   "references": [
     {
       "path": "./tsconfig.lib.json"

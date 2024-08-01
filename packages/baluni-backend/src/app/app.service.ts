@@ -1,16 +1,63 @@
 import { ConnectionManager } from '@homeofthings/nestjs-sqlite3';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { StatsRepository } from './repositories/stats.repository';
+import { ExternalRepository } from './repositories/external.repository';
 
 @Injectable()
 export class AppService {
   constructor(
     private connectionManager: ConnectionManager,
     private statsRepository: StatsRepository,
+    private externalRepository: ExternalRepository
   ) {}
 
   getData(): { message: string } {
     return { message: 'Hello API' };
+  }
+
+  async getUniswapTokens(chainId: number) {
+    try {
+      const tokens = await this.externalRepository.getUniswapTokens(chainId);
+      return tokens;
+    } catch {
+      throw new BadRequestException('Failed to fetch statistics data');
+    }
+  }
+
+  async getUniswapToken(chainId: number, symbol: string) {
+    try {
+      const token = await this.externalRepository.getUniswapToken(
+        chainId,
+        symbol
+      );
+      return token;
+    } catch {
+      throw new BadRequestException('Failed to fetch statistics data');
+    }
+  }
+
+  async getYearnVaults(chainId: number) {
+    try {
+      const vaults = await this.externalRepository.getYearnVaults(chainId);
+      return vaults;
+    } catch {
+      throw new BadRequestException('Failed to fetch statistics data');
+    }
+  }
+
+  async getYearnVault(
+    chainId: number,
+    symbol: string,
+    strategyType: string,
+    boosted: string
+  ) {
+    try {
+      const data = { chainId, symbol, strategyType, boosted };
+      const vault = await this.externalRepository.getYearnVault(data);
+      return vault;
+    } catch {
+      throw new BadRequestException('Failed to fetch statistics data');
+    }
   }
 
   async getHyperPoolsData() {

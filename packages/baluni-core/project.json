@@ -9,10 +9,19 @@
       "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
+        "generateExportsField": true,
         "outputPath": "dist/packages/baluni-core",
         "main": "packages/baluni-core/src/index.ts",
         "tsConfig": "packages/baluni-core/tsconfig.lib.json",
-        "assets": ["packages/baluni-core/*.md"]
+        "packageJson": "packages/baluni-core/package.json",
+        "rootDir": "packages/baluni-core/src",
+        "assets": ["packages/baluni-core/*.md"],
+        "additionalEntryPoints": [
+          "packages/baluni-contracts/src/index.ts",
+          "packages/baluni-core/src/index.ts",
+          "packages/baluni-core/src/core/types/index.ts",
+          "packages/baluni-core/src/api/index.ts"
+        ]
       }
     }
   }

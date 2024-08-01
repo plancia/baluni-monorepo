@@ -1,0 +1,10 @@
+const StorageSlot = {
+  "_format": "hh-sol-artifact-1",
+  "contractName": "StorageSlot",
+  "sourceName": "@openzeppelin/contracts/utils/StorageSlot.sol",
+  "abi": [],
+  "bytecode": "0x608060405234601d57600e6021565b603e602c823930815050603e90f35b6027565b60405190565b5f80fdfe60806040525f80fdfea2646970667358221220ca4d3bc71e3f9a3c4ad30a65de65664c969ac475639590ee46077ed8023da08264736f6c63430008190033",
+  "deployedBytecode": "0x60806040525f80fdfea2646970667358221220ca4d3bc71e3f9a3c4ad30a65de65664c969ac475639590ee46077ed8023da08264736f6c63430008190033",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+} as const; export default StorageSlot;

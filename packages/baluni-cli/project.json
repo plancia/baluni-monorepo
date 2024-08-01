@@ -13,7 +13,7 @@
         "platform": "node",
         "outputPath": "dist/packages/baluni-cli",
         "format": ["cjs"],
-        "bundle": false,
+        "bundle": true,
         "main": "packages/baluni-cli/src/main.ts",
         "tsConfig": "packages/baluni-cli/tsconfig.app.json",
         "assets": ["packages/baluni-cli/src/assets"],
@@ -26,7 +26,9 @@
         }
       },
       "configurations": {
-        "development": {},
+        "development": {
+          "watch": true
+        },
         "production": {
           "esbuildOptions": {
             "sourcemap": false,
@@ -42,6 +44,22 @@
       "defaultConfiguration": "development",
       "options": {
         "buildTarget": "baluni-cli:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "baluni-cli:build:development"
+        },
+        "production": {
+          "buildTarget": "baluni-cli:build:production"
+        }
+      }
+    },
+    "rebalance": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "baluni-cli:build",
+        "args": ["rebalance"]
       },
       "configurations": {
         "development": {

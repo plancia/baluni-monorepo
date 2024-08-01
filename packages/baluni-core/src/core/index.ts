@@ -1,3 +1,3 @@
-export { predict } from './features/ml/predict'
-export { executeRebalance } from './strategies/loops/rebalanceUniswap/main'
-export { executeRebalanceV2 } from './strategies/loops/rebalanceOdos/main'
+export { predict } from './features/ml/predict';
+export { executeRebalance } from './strategies/rebalance/uniswap/main';
+export { executeRebalanceV2 } from './strategies/rebalance/odos/main';

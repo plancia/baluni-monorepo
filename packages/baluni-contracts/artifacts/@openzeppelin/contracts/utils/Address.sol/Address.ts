@@ -1,0 +1,38 @@
+const Address = {
+  "_format": "hh-sol-artifact-1",
+  "contractName": "Address",
+  "sourceName": "@openzeppelin/contracts/utils/Address.sol",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "target",
+          "type": "address"
+        }
+      ],
+      "name": "AddressEmptyCode",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "AddressInsufficientBalance",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "FailedInnerCall",
+      "type": "error"
+    }
+  ],
+  "bytecode": "0x608060405234601d57600e6021565b603e602c823930815050603e90f35b6027565b60405190565b5f80fdfe60806040525f80fdfea264697066735822122054a0b0d4a13222017fdf403af39d16f64aa6ca60dba1c680a673b771a7272a7c64736f6c63430008190033",
+  "deployedBytecode": "0x60806040525f80fdfea264697066735822122054a0b0d4a13222017fdf403af39d16f64aa6ca60dba1c680a673b771a7272a7c64736f6c63430008190033",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+} as const; export default Address;
