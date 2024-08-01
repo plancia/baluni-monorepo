@@ -6,6 +6,7 @@ import {
   NetworkConfig,
   OracleConfig,
 } from './types/constants';
+import { Web3Address } from '../core/types';
 // import { baluniContracts } from 'baluni-contracts';
 // import deployedContracts from 'baluni-contracts/deployments/deployedContracts.json'
 
@@ -20,7 +21,7 @@ export const INFRA: InfraConfig = {
       baluniContracts.baluniDeploiedContracts[137].BaluniV1PoolRegistry,
     POOLPERIPHERY:
       baluniContracts.baluniDeploiedContracts[137].BaluniV1PoolPeriphery,
-    REGISTRY: baluniContracts.baluniDeploiedContracts[137].BaluniV1Registry,
+    REGISTRY: baluniContracts.baluniDeploiedContracts[137].BaluniV1Registry as Web3Address,
     SWAPPER: baluniContracts.baluniDeploiedContracts[137].BaluniV1Swapper,
     ORACLE: baluniContracts.baluniDeploiedContracts[137].BaluniV1Oracle,
   },
