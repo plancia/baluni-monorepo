@@ -12,7 +12,14 @@
         "outputPath": "dist/packages/baluni-contracts",
         "main": "packages/baluni-contracts/src/index.ts",
         "tsConfig": "packages/baluni-contracts/tsconfig.lib.json",
-        "assets": ["packages/baluni-contracts/*.md"]
+        "assets": [
+          "packages/baluni-contracts/*.md",
+          {
+            "input": "packages/baluni-contracts/contracts/*", 
+            "glob": "**/*.sol", 
+            "output": "./contracts" 
+          }
+        ]
       }
     }
   }

@@ -7,7 +7,9 @@
     "backend:dev": "nx run baluni-backend:serve --configuration=development",
     "web:dev": "yarn nx run baluni-web:dev",
     "cli:dev": "yarn nx run baluni-cli:serve",
-    "cli:rebalance:dev": "yarn nx run baluni-cli:rebalance"
+    "cli:rebalance:dev": "yarn nx run baluni-cli:rebalance",
+    "build:baluni-core":"yarn nx run baluni-core:build ",
+    "build:baluni-contracts":"yarn nx run baluni-contracts:build "
   },
   "devDependencies": {
     "@esbuild-plugins/tsconfig-paths": "^0.1.2",
