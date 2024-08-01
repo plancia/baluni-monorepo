@@ -4,92 +4,89 @@ import {
   NATIVETOKENS,
   NETWORKS,
   TOKENS_URL,
-} from '../../../../baluni-core/src/api/";
-import { YearnVault, Configurations } from '../../../../baluni-core/src/core/types/'
+} from 'baluni-core/src/api';
+import { YearnVault } from 'baluni-core/src/core/types/';
 import { Logger } from '@nestjs/common';
 import { Injectable } from '@nestjs/common';
 
-const CONFIGURATIONS: Configurations = {
-  protocols: PROTOCOLS,
-  oracle: ORACLE,
-  nativeTokens: NATIVETOKENS,
-  networks: NETWORKS,
-}
-
 @Injectable()
 export class ExternalRepository {
-  getUniswapTokensList(
-    chainId:number
-  ){
+  async getUniswapTokens(chainId: number) {
     try {
-      const response = await fetch(TOKENS_URL)
-      const data = await response.json()
+      const response = await fetch(TOKENS_URL);
+      const data = await response.json();
       const filteredTokens = data.tokens.filter(
         (token: { chainId: number }) => token.chainId === Number(chainId)
-      )
+      );
       return filteredTokens;
     } catch (error) {
-      Logger.error("Failed to get uniswap tokens list")
+      Logger.error('Failed to get uniswap tokens list');
     }
-  }  
-  getUniswapToken(chainId:number, symbol:string){
+  }
+  async getUniswapToken(chainId: number, symbol: string) {
     try {
-      const response = await fetch(TOKENS_URL)
-      const data = await response.json()
+      const response = await fetch(TOKENS_URL);
+      const data = await response.json();
       const matchingTokens = data.tokens.filter(
         (token: { chainId: number; symbol: string }) =>
           token.chainId === Number(chainId) &&
-          token.symbol.toLowerCase() === tokenSymbol.toString().toLowerCase()
-      )
-  
+          token.symbol.toLowerCase() === symbol.toString().toLowerCase()
+      );
+
       if (matchingTokens.length === 0) {
-        return res.status(404).json({ error: 'Token not found' })
+        Logger.error('Token not found');
       }
-  
-     return matchingTokens[0]
+
+      return matchingTokens[0];
     } catch (error) {
-     Logger.error("Failed to get token from uniswap")
+      Logger.error('Failed to get token from uniswap');
     }
   }
-  getYearnVault(chainId: number, symbol: string, strategyType?:string, boosted?:string) {
-    const apiURL = `https://ydaemon.yearn.fi/${chainId}/vaults/all`
-  
-    try {
-      const response = await fetch(apiURL)
-      const data: YearnVault[] = await response.json()
+  async getYearnVault(
+    chainId: number,
+    symbol: string,
+    strategyType?: string,
+    boosted?: string
+  ) {
+    const apiURL = `https://ydaemon.yearn.fi/${chainId}/vaults/all`;
 
-      if(strategyType === "" && boosted === "" ) return data;
-  
-      let filteredVaults = data.filter(vault => {
+    try {
+      const response = await fetch(apiURL);
+      const data: YearnVault[] = await response.json();
+
+      if (strategyType === '' && boosted === '') return data;
+
+      const filteredVaults = data.filter((vault) => {
         const matchesSymbol =
-          vault.token.symbol.toLowerCase() === symbol.toLowerCase()
+          vault.token.symbol.toLowerCase() === symbol.toLowerCase();
         const isVersion3 =
           vault.version?.startsWith('3.0') ||
           vault.name.includes('3.0') ||
-          vault.symbol.includes('3.0')
-        let matchesStrategyType = true
-        let matchesBoosted = true
-  
+          vault.symbol.includes('3.0');
+        let matchesStrategyType = true;
+        let matchesBoosted = true;
+
         if (strategyType === 'multi') {
-          matchesStrategyType = vault.kind === 'Multi Strategy'
+          matchesStrategyType = vault.kind === 'Multi Strategy';
         } else if (strategyType === 'single') {
-          matchesStrategyType = vault.kind !== 'Multi Strategy'
+          matchesStrategyType = vault.kind !== 'Multi Strategy';
         }
-  
+
         // Check if boosted filter is applied
         if (boosted === 'true') {
-          matchesBoosted = vault.boosted === true
+          matchesBoosted = vault.boosted === true;
         }
-  
+
         return (
           matchesSymbol && isVersion3 && matchesStrategyType && matchesBoosted
-        )
-      })
-  
+        );
+      });
+
       if (filteredVaults.length === 0) {
-        return Logger.error('Vault not found for the given criteria')}
-  
-      const vault = filteredVaults[0]
+        return Logger.error('Vault not found for the given criteria');
+      }
+
+      const vault = filteredVaults[0];
       return {
         vaultAddress: vault.address,
         vaultName: vault.name,
@@ -100,42 +97,40 @@ export class ExternalRepository {
         strategyType: vault.kind,
         version: vault.version,
         boosted: vault.boosted,
-      }
+      };
     } catch (error) {
-      return Logger.error('Failed to fetch Yearn Finance vaults:', error) 
+      return Logger.error('Failed to fetch Yearn Finance vaults:', error);
     }
   }
-  getYearnVaults(chainId:number) {
-  const apiURL = `https://ydaemon.yearn.fi/${chainId}/vaults/all`
+  async getYearnVaults(chainId: number) {
+    const apiURL = `https://ydaemon.yearn.fi/${chainId}/vaults/all`;
 
     try {
-      const response = await fetch(apiURL)
-      const data: YearnVault[] = await response.json()
+      const response = await fetch(apiURL);
+      const data: YearnVault[] = await response.json();
 
-      return(
-        data.map(vault => ({
-          vaultAddress: vault.address,
-          vaultName: vault.name,
-          vaultSymbol: vault.symbol,
-          tokenAddress: vault.token.address,
-          tokenName: vault.token.name,
-          tokenSymbol: vault.token.symbol,
-        }))
-      )
+      return data.map((vault) => ({
+        vaultAddress: vault.address,
+        vaultName: vault.name,
+        vaultSymbol: vault.symbol,
+        tokenAddress: vault.token.address,
+        tokenName: vault.token.name,
+        tokenSymbol: vault.token.symbol,
+      }));
     } catch (error) {
-      Logger.error('Failed to fetch Yearn Finance vaults:', error)
+      Logger.error('Failed to fetch Yearn Finance vaults:', error);
     }
   }
 }
 async function fetchYearnVaultsData(chainId: number): Promise<YearnVault[]> {
   try {
-    const apiURL = `https://ydaemon.yearn.fi/${chainId}/vaults/all`
-    const response = await fetch(apiURL)
-    const data: YearnVault[] = await response.json()
-    return data
+    const apiURL = `https://ydaemon.yearn.fi/${chainId}/vaults/all`;
+    const response = await fetch(apiURL);
+    const data: YearnVault[] = await response.json();
+    return data;
   } catch (error) {
-    console.error('Failed to fetch Yearn Finance vaults:', error)
-    return []
+    console.error('Failed to fetch Yearn Finance vaults:', error);
+    return [];
   }
 }
 async function fetchTokenAddressByName(

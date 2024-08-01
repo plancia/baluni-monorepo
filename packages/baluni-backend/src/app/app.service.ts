@@ -53,7 +53,12 @@ export class AppService {
   ) {
     try {
       const data = { chainId, symbol, strategyType, boosted };
-      const vault = await this.externalRepository.getYearnVault(data);
+      const vault = await this.externalRepository.getYearnVault(
+        data.chainId,
+        data.symbol,
+        data.strategyType,
+        data.boosted
+      );
       return vault;
     } catch {
       throw new BadRequestException('Failed to fetch statistics data');
