@@ -9,7 +9,10 @@
       "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
+        "updateBuildableProjectDepsInPackageJson": true,
+        "buildableProjectDepsInPackageJsonType": "dependencies",
         "generateExportsField": true,
+        "generatePackageJson": true,
         "outputPath": "dist/packages/baluni-core",
         "main": "packages/baluni-core/src/index.ts",
         "tsConfig": "packages/baluni-core/tsconfig.lib.json",

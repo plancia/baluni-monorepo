@@ -512,7 +512,6 @@ export async function rebalancePortfolio(
 
       const quote = await swap_logics.quote(params);
       const data = await swap_logics.build(
-        builder.sender,
         builder.agentAddress,
         quote
       );
