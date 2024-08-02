@@ -11,6 +11,8 @@
 
 BALUNI is an innovative application designed for trading on decentralized exchanges. It offers a range of tools to facilitate trading activities on platforms like Uniswap. BALUNI is tailored to assist both new and experienced traders in managing their cryptocurrency portfolios with ease.
 
+try our online demo at https://baluni.vercel.app
+
 ## How it works?
 
 <figure><img src=".gitbook/assets/Diagramma senza titolo.drawio (1).png" alt=""><figcaption><p>Baluni Tx Flow</p></figcaption></figure>
