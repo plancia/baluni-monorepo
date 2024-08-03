@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { baluniCli, BaluniCliOptions } from '../main';
-import cliPickers, { BaluniPicker } from './indes';
+import cliPickers, { BaluniPicker } from '.';
 import { TConfig } from 'baluni-core/types';
 
 /**

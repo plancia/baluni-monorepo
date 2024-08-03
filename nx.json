@@ -75,5 +75,5 @@
       }
     }
   },
-  "useDaemonProcess": false
+  "useDaemonProcess": true
 }

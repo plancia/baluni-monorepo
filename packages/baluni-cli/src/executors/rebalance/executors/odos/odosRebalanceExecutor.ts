@@ -1,7 +1,7 @@
 import * as strategies from 'baluni-core/strategies';
 import { TConfigReturn } from 'baluni-core/types';
 import { formatConfig } from 'baluni-core/utils';
-import cliPickers from 'packages/baluni-cli/src/pickers/indes';
+import cliPickers from 'packages/baluni-cli/src/pickers';
 
 export default async function execute() {
   let _config = await cliPickers.configFilePicker.pick({

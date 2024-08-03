@@ -1,10 +1,11 @@
 {
   "name": "baluni-contracts",
-  "version": "2.9.7",
+  "version": "2.9.8",
   "description": "Smart Contracts for Baluni",
   "installConfig": {
     "hoistingLimits": "dependencies"
   },
+  "private":false,
   "types": "typechain-types/index.ts",
   "main": "./src/index.js",
   "typings": "./src/index.d.ts",

@@ -1,14 +1,14 @@
 import { initializeWallet } from '../../../utils/web3/dexWallet';
 import { rebalancePortfolio } from './execute';
 import { predict } from '../../../features/ml/predict';
-import { welcomeMessage } from '../../../welcome';
 import { formatConfig } from '../../../utils/formatConfig';
 import * as blocks from '../../../utils/logBlocks';
-import { TConfigReturn } from '../../../types/config';
+import { TConfig, TConfigReturn } from '../../../types/config';
 import * as _config from './config.json';
 import { NETWORKS, USDC } from '../../../../api/constants';
 import { checkWeightsSum } from '../../../utils/checkWeights';
 import { getTokenAddressUniV3 } from '../../../utils';
+import { getConfig, init } from '../../..';
 
 interface LinearRegressionResult {
   predicted: number;
@@ -16,17 +16,26 @@ interface LinearRegressionResult {
 }
 
 export async function executeRebalance(
-  config: TConfigReturn,
-  log: boolean,
-  pk?: string
+  _config: TConfig,
+  rpcUrl: string,
+  pk: string
 ) {
+  init(rpcUrl, pk, _config);
+
+  const storedConf = getConfig();
+
+  const config: TConfigReturn = await formatConfig(storedConf.config);
+
   blocks.print1starry();
   console.log('Checking portfolio');
+
   const dexWallet = await initializeWallet(
     NETWORKS[config?.SELECTED_CHAINID],
     pk
   );
+
   let selectedWeights = config?.WEIGHTS_UP;
+
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const { kstCross, getDetachSourceFromOHLCV } = require('trading-indicator');
 
@@ -66,8 +75,8 @@ export async function executeRebalance(
     '❎ KST cross:',
     config?.TREND_FOLLOWING ? kstResult.cross : 'None'
   );
-  let TREND: boolean = true;
-  let LAST_TREND: boolean = true;
+  let TREND = true;
+  let LAST_TREND = true;
 
   if (config?.TREND_FOLLOWING && signalAI !== 'none') {
     if (kstResult.direction === 'up' && signalAI === 'up' && kstResult.cross) {
@@ -144,8 +153,6 @@ export async function executeRebalance(
     );
   }
 
-  if (!log) return;
-
   blocks.print1starry();
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const fs = require('fs');
@@ -172,24 +179,3 @@ export async function executeRebalance(
   results.push(newResult);
   fs.writeFileSync(kstResultPath, JSON.stringify(results), 'utf-8');
 }
-
-async function main() {
-  welcomeMessage();
-  const config: TConfigReturn = await formatConfig(_config);
-  await executeRebalance(config, true);
-  try {
-    setInterval(async () => {
-      try {
-        await executeRebalance(config, true);
-      } catch (error) {
-        console.error('Error during rebalancing:', error);
-      }
-    }, config.INTERVAL ?? 1000); // Add nullish coalescing operator to provide a default value
-  } catch (error) {
-    console.error('Error during initialization:', error);
-  }
-}
-
-// main().catch(error => {
-//   console.error('An error occurred:', error)
-// })

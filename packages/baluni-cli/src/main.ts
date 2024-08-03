@@ -4,10 +4,13 @@ import { welcomeMessage } from './welcome';
 
 export type BaluniCliOptions = {
   file?: string;
+  rpcUrl?: string;
+  privateKey?: string;
 };
 welcomeMessage();
 
 export const baluniCli = new Command();
+
 baluniCli
   .name('baluni-cli')
   .description('Baluni command line utilities')
@@ -16,6 +19,9 @@ baluniCli
   .version('0.0.1');
 
 baluniCli.option('-f, --file <string>', 'the path to the config file');
+baluniCli.option('-ru, --rpcUrl <string>', 'the rpc url');
+baluniCli.option('-pk, --privateKey <string>', 'the private key');
+
 baluniCli
   .command('rebalance')
   .description('Execute rebalance operation')

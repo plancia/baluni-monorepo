@@ -15,9 +15,9 @@
         "assets": [
           "packages/baluni-contracts/*.md",
           {
-            "input": "packages/baluni-contracts/contracts/*", 
-            "glob": "**/*.sol", 
-            "output": "./contracts" 
+            "input": "packages/baluni-contracts/contracts",
+            "glob": "**/*.sol",
+            "output": "./contracts"
           }
         ]
       }

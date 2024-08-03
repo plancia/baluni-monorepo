@@ -1,5 +1,5 @@
 import inquirer from 'inquirer';
-import { BaluniPicker } from './indes';
+import { BaluniPicker } from '.';
 
 /**
  * This a generic picker for file paths.

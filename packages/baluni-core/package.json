@@ -1,6 +1,6 @@
 {
   "name": "baluni-core",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "type": "commonjs",
   "typings": "./src/index.d.ts",
   "main": "./index.js",
