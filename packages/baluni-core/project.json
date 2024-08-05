@@ -10,7 +10,6 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "updateBuildableProjectDepsInPackageJson": true,
-        "buildableProjectDepsInPackageJsonType": "dependencies",
         "generateExportsField": true,
         "generatePackageJson": true,
         "outputPath": "dist/packages/baluni-core",

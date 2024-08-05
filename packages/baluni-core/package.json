@@ -4,5 +4,11 @@
   "type": "commonjs",
   "typings": "./src/index.d.ts",
   "main": "./index.js",
-  "types": "./index.d.ts"
+  "types": "./index.d.ts",
+  "exports": {
+    ".": "./index.js",
+    "./types": "./src/core/types/index.js",
+    "./api": "./src/api/index.js",
+    "./utils": "./src/core/utils/index.js"
+  }
 }
